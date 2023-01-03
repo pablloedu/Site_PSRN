@@ -1,0 +1,106 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <!-- ======= Head ======= -->
+  {% include 'partials/head.html' %}
+
+<body>
+  <!-- ======= Header ======= -->
+  {% include 'partials/header.html' %}
+  
+  <main id="main">
+
+    <section id="section-post" class="single-post-content">
+      <div class="container">
+        <div style="display: block;" class="row">
+          <div id="post-block" style="display: block; box-sizing: initial;" class="col-md-9 post-content" data-aos="fade-up">
+
+            <!-- ======= Single Post Content ======= -->
+            <!-- FAZER UM FOR DENTRO DE TAG PARA MOSTRAR TODAS AS TAGS -->
+
+            <div class="single-post">
+              <h1 class="s-content__header-title" id="titulo-post">{{ article.title|title }}</h1>
+              <div id="post-meta-post" class="post-meta">
+                <span style="padding-right: 10px;">{{article.publiched_date|date}}</span>
+                <span class="date">In <a style="padding-left: 10px;" href="#">{{ article.tag.all.0.name}}</a></span>
+              </div>
+
+
+              <figure style="text-align: center;" class="my-4">
+                <img src="{{article.image.url}}" alt="" class="img-fluid">
+              </figure>
+              <p style="margin-top: 50px; text-align: justify;" class="ideia-central"> {{article.main_idea}}</p>
+
+               <!-- HTMLField() -->
+              <div style="text-align: justify;">
+                {{article.text|safe}}
+              </div>
+            </div><!-- End Single Post Content -->
+
+
+            <!-- AUTHOR CONTENT -->
+            <div class="s-content__author">
+              <img style="height: 5rem; width:5rem ;" src="{{article.user_id.photo.url}}" alt="">
+
+              <div class="s-content__author-about">
+                <h4 class="s-content__author-name">
+                    <a href="#0">{{article.user_id.name}}</a>
+                </h4>
+            
+                <p>{{article.user_id.bio}}</p>
+
+                <ul class="s-content__author-social">
+                    <li><a href="#0">Facebook</a></li>
+                    <li><a href="#0">Twitter</a></li>
+                    <li><a href="#0">GooglePlus</a></li>
+                    <li><a href="#0">Instagram</a></li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ======= Comments ======= -->
+          
+      <div class="comments-wrap">
+        <div id="comments" class="row">
+            <div class="col-full">
+                <div id="disqus_thread"></div>
+                <script>
+                    /**
+                    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+                    /*
+                    var disqus_config = function () {
+                    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                    };
+                    */
+                    (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://sao-raimundo.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </div> <!-- end col-full -->
+        </div> <!-- end row comments -->
+      </div> <!-- end comments-wrap -->
+      
+      <!--       
+      <div class="col-md-3">
+        ======= Sidebar =======
+      </div> -->
+
+    </section>
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  {% include 'partials/footer.html'%}
+</body>
+
+</html>

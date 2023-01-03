@@ -1,0 +1,114 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  {% include 'partials/head.html' %}
+
+
+<body>
+
+  {% include 'partials/header.html' %}
+  
+  
+  <main id="main">
+    <section style="margin-bottom:50px ;" class="category-section">
+      <div class="container" data-aos="fade-up">
+        <br><br>
+          <form style="margin-bottom: 10px;" action="/search/" method="get">
+            <div class="form-group row">
+              <div class="col-12">
+              <input id="enter" type="text" placeholder="Pesquisar Título" class="form-control" name="search_field">
+              </div>
+            </div>
+          </form>
+
+          <div style="margin-bottom: 0px;" class="form-group row">
+            <ul style="margin-bottom: 0px;"  class="aside-tags list-unstyled">
+              {%for tag in tags%}
+              <li><a href="/search/?search_field={{tag.name}}">{{tag.name}}</a></li>
+              {%endfor%}
+            </ul>
+          </div>
+
+        <div class="section-header d-flex justify-content-between align-items-center mb-5">
+          <h4 style="text-transform:capitalize;">Resultados para: "{{ request.GET.search_field }}"</h4>
+        </div>
+
+        <div class="row">
+
+          <!-- RESULTADOS -->
+          <div class="col-md-9">
+            {%if not request.GET.search_field %}    
+                <h3>Nenhuma Informação Digitada :( </h1>
+            
+            {%elif not relatedPosts %}    
+                <h3>Nenhuma Informação Encontrada :( </h1>
+                
+            {% endif %}
+
+
+
+              {% for pub in relatedPosts %}
+                  <div class="d-lg-flex post-entry-2">
+
+                      <a style="max-width: 500px;" href="/article/{{pub.generate_url}}" class="me-4 thumbnail mb-4 mb-lg-0">
+                        <img style="object-position: top; object-fit: cover;" src="{{pub.image.url}}" alt="" class="img-fluid">
+                      </a>
+                    
+                    <div class="index_card">
+                      <div style="margin-top:5px" class="post-meta">
+                        <span class="date">{{ pub.main_tag.name }}</span>
+                        <span class="mx-1">&bullet;</span>
+                        <span>{{ pub.publiched_date|date }}</span>
+                      </div>
+                      <!-- <h3  id="index"><a href="article/{{pub.generate_url}}">{{pub.generate_title|title}}</a></h3> -->
+                      <h3  id="index"><a href="/article/{{pub.generate_url}}">{{pub.generate_title|title}}</a></h3>
+                      <p style="margin-bottom:0px ;">{{pub.generate_summary|safe}}</p>
+                    </div>
+
+                  </div>    
+              {% endfor %}  
+
+          </div>
+
+
+            <!-- CONTEUDO ESTATICO -->
+          <div class="col-md-3">
+            <div class="post-entry-1 border-bottom">
+              <a href="article/"><img src="{% static 'img/post-landscape-1.jpg'%}" alt="" class="img-fluid"></a>
+              <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
+              <h2 id="index" class="mb-2"><a href="article/">11 Work From Home Part-Time Jobs You Can Do Now</a></h2>
+              <span class="author mb-3 d-block">Jenny Wilson</span>
+              <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus repudiandae, inventore pariatur numquam cumque possimus</p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+
+      <!-- PAGINAÇÃO         AS SETINHAS AINDA NÃO FUNNCIONAM -->   
+      <div class="text-center py-4">
+        <div class="custom-pagination">
+          <a href="#" class="prev">&lt;</a>
+          {%for pagina in relatedPosts.paginator.page_range %}
+            {% if relatedPosts.number == pagina %}
+              <a href="?search_field={{request.GET.search_field}}&page={{pagina}}" role="button" aria-disabled="true" class="active">{{pagina}}</a>
+            {%else%}
+              <a href="?search_field={{request.GET.search_field}}&page={{pagina}}">{{pagina}}</a>
+            {%endif%}
+          {%endfor%}
+
+          <a href="#" class="next">&gt;</a>
+        </div>
+      </div>
+
+    </section><!-- End Culture Category Section -->
+
+  </main><!-- End #main -->
+
+{%include 'partials/footer.html'%}
+  
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+  <!-- ======= Head ======= -->
+  {% include 'partials/head.html' %}
+
+  <body>
+
+    <!-- ======= Header ======= -->
+    {% include 'partials/header.html' %}
+    
+    <main id="main">
+
+      <!-- ======= Hero Slider Section ======= -->
+      <section id="hero-slider" class="hero-slider">
+        <div class="container-md" data-aos="fade-in">
+          <div class="row">
+            <div class="col-12">
+              <div class="swiper sliderFeaturedPosts">
+                <div style="max-height: 450px;" class="swiper-wrapper">
+
+                  <!-- PEGAR SO OS 3 OU 4 -->
+                  {% for pub in posts %}
+                    <div  class="swiper-slide">
+                      <a href="article/{{pub.generate_url}}" class="img-bg d-flex align-items-end" style="background-image: url('{{pub.image.url}}');">
+                        <div class="img-bg-inner">
+                          <h2 id="index">{{ pub.generate_title|title }}</h2>
+                          <p>{{ pub.generate_summary|safe }}</p>
+                        </div>
+                      </a>
+                    </div>
+                  {% endfor %}
+
+                </div>
+                <div class="custom-swiper-button-next">
+                  <span class="bi-chevron-right"></span>
+                </div>
+                <div class="custom-swiper-button-prev">
+                  <span class="bi-chevron-left"></span>
+                </div>
+
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section><!-- End Hero Slider Section -->
+
+      
+      <!-- ======= Culture Category Section ======= -->
+      <section style="margin-bottom:50px ;" class="category-section">
+        <div class="container" data-aos="fade-up">
+
+          <!-- <div class="section-header d-flex justify-content-between align-items-center mb-5">
+            <h2>Culture</h2>
+            <div><a href="category.html" class="more">See All Culture</a></div>
+          </div> -->
+
+          <div class="row">
+
+            <div class="col-md-9">            
+              {% for pub in page_pub %}
+                <div class="d-lg-flex post-entry-2">
+
+                    <a style="max-width: 500px;" href="article/{{pub.generate_url}}" class="me-4 thumbnail mb-4 mb-lg-0">
+                      <img style="object-position: top; object-fit: cover;" src="{{pub.image.url}}" alt="" class="img-fluid">
+                    </a>
+                  
+                  <div class="index_card">
+                    <div style="margin-top:5px" class="post-meta">
+                      <span class="date">{{ pub.main_tag.name }}</span>
+                      <span class="mx-1">&bullet;</span>
+                      <span>{{ pub.publiched_date|date }}</span>
+                    </div>
+                    <h3  id="index"><a href="article/{{pub.generate_url}}">{{pub.generate_title|title}}</a></h3>
+                    <p style="margin-bottom:0px ;">{{pub.generate_summary|safe}}</p>
+                  </div>
+
+                </div>              
+              {% endfor %}            
+            </div>
+
+
+              <!-- CONTEUDO ESTATICO -->
+            <div class="col-md-3">
+              <div class="post-entry-1 border-bottom">
+                <img src="{%static 'img/santo.png'%}" alt="">
+                <!-- <a href="article/"><img src="{% static 'img/post-landscape-1.jpg'%}" alt="" class="img-fluid"></a>
+                <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
+                <h2 id="index" class="mb-2"><a href="article/">11 Work From Home Part-Time Jobs You Can Do Now</a></h2>
+                <span class="author mb-3 d-block">Jenny Wilson</span>
+                <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus repudiandae, inventore pariatur numquam cumque possimus</p> -->
+              </div>
+              <div style="margin-bottom: 0px;" class="form-group row">
+                <ul style="margin-bottom: 0px;"  class="aside-tags list-unstyled">
+                  {%for tag in tags%}
+                  <li><a href="/search/?search_field={{tag.name}}">{{tag.name}}</a></li>
+                  {%endfor%}
+                </ul>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </section><!-- End Culture Category Section -->
+
+
+      <!-- PAGINAÇÃO -->
+      <div class="text-center py-4">
+        <div class="custom-pagination">
+          <a href="#" class="prev">&lt;</a>
+
+          {%for pagina in page_pub.paginator.page_range %}
+            {% if page_pub.number == pagina %} 
+              <a href="?page={{pagina}}" class="active">{{pagina}}</a>
+            {%else%}
+              <a href="?page={{pagina}}">{{pagina}}</a>
+            {%endif%}
+          {%endfor%}
+
+          <a href="#" class="next">&gt;</a>
+        </div>
+      </div>
+
+      <!-- OK NADA A MAIS PARA BAIXO -->
+
+
+    </main><!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    {%include 'partials/footer.html'%}
+  </body>
+
+</html>

@@ -1,0 +1,70 @@
+{%load static%}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+{%include 'partials/head.html'%}
+
+<body>
+
+  <!-- ======= Header ======= -->
+  {% include 'partials/header.html' %}
+  
+  <main id="main">
+
+    <section>
+      <div class="container" data-aos="fade-up">
+        <div class="row">
+          <div class="col-12 text-center mb-5">
+            <div class="row justify-content-center">
+              <div class="col-lg-6">
+                <h2 class="display-4">Nosso Time</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil sint sed, fugit distinctio ad eius itaque deserunt doloribus harum excepturi laudantium sit officiis et eaque blanditiis. Dolore natus excepturi recusandae.</p>
+              </div>
+            </div>
+          </div>
+            <form action="/about" method="POST">
+              <table class="table">
+                {% block content %}
+                <h2>Add person</h2>
+                <form method="post">
+                  {% csrf_token %}
+              
+                  {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                  {% endfor %}
+              
+                  {% for field in form.visible_fields %}
+                    <div class="form-group">
+                      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                      {{ field|add_class:'form-control' }}
+                      {% for error in field.errors %}
+                        <span class="help-block">{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% endfor %}
+              
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-success">
+                      <span class="glyphicon glyphicon-ok"></span> Save
+                    </button>
+                    <a href="/" class="btn btn-default">Cancel</a>
+                  </div>
+                </form>
+              {% endblock %}
+              </table>
+            </form>
+            
+          
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  {% include 'partials/footer.html'%}
+ 
+</body>
+
+</html>
