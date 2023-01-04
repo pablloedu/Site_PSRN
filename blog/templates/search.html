@@ -30,44 +30,56 @@
             </ul>
           </div>
 
-        <div class="section-header d-flex justify-content-between align-items-center mb-5">
-          <h4 style="text-transform:capitalize;">Resultados para: "{{ request.GET.search_field }}"</h4>
-        </div>
+        
 
         <div class="row">
 
           <!-- RESULTADOS -->
           <div class="col-md-9">
-            {%if not request.GET.search_field %}    
-                <h3>Nenhuma Informação Digitada :( </h1>
+            {%if not request.GET.search_field %} 
             
-            {%elif not relatedPosts %}    
-                <h3>Nenhuma Informação Encontrada :( </h1>
-                
+            <div class="section-header d-flex justify-content-between align-items-center mb-5">
+              <h4 style="text-transform:capitalize;">Nenhuma Informação Digitada :( "</h4>
+            </div>
+            
+            
+            {%elif not relatedPosts %}
+            <div class="section-header d-flex justify-content-between align-items-center mb-5">
+              <h4 style="text-transform:capitalize;">Nenhum Resultado para: "{{ request.GET.search_field }} "</h4>
+            </div>   
+
+            {%else%}
+
+            <div class="section-header d-flex justify-content-between align-items-center mb-5">
+              <h4 style="text-transform:capitalize;">Resultados para: "{{ request.GET.search_field }}"</h4>
+            </div>
+
+                {% for pub in relatedPosts %}
+                <div class="d-lg-flex post-entry-2">
+
+                    <a style="max-width: 500px;" href="/article/{{pub.generate_url}}" class="me-4 thumbnail mb-4 mb-lg-0">
+                      <img style="object-position: top; object-fit: cover;" src="{{pub.image.url}}" alt="" class="img-fluid">
+                    </a>
+                  
+                  <div class="index_card">
+                    <div style="margin-top:5px" class="post-meta">
+                      <span class="date">{{ pub.main_tag.name }}</span>
+                      <span class="mx-1">&bullet;</span>
+                      <span>{{ pub.publiched_date|date }}</span>
+                    </div>
+                    <!-- <h3  id="index"><a href="article/{{pub.generate_url}}">{{pub.generate_title|title}}</a></h3> -->
+                    <h3  id="index"><a href="/article/{{pub.generate_url}}">{{pub.generate_title|title}}</a></h3>
+                    <p style="margin-bottom:0px ;">{{pub.generate_summary|safe}}</p>
+                  </div>
+
+                </div>    
+                {% endfor %}
+            
             {% endif %}
 
 
 
-              {% for pub in relatedPosts %}
-                  <div class="d-lg-flex post-entry-2">
-
-                      <a style="max-width: 500px;" href="/article/{{pub.generate_url}}" class="me-4 thumbnail mb-4 mb-lg-0">
-                        <img style="object-position: top; object-fit: cover;" src="{{pub.image.url}}" alt="" class="img-fluid">
-                      </a>
-                    
-                    <div class="index_card">
-                      <div style="margin-top:5px" class="post-meta">
-                        <span class="date">{{ pub.main_tag.name }}</span>
-                        <span class="mx-1">&bullet;</span>
-                        <span>{{ pub.publiched_date|date }}</span>
-                      </div>
-                      <!-- <h3  id="index"><a href="article/{{pub.generate_url}}">{{pub.generate_title|title}}</a></h3> -->
-                      <h3  id="index"><a href="/article/{{pub.generate_url}}">{{pub.generate_title|title}}</a></h3>
-                      <p style="margin-bottom:0px ;">{{pub.generate_summary|safe}}</p>
-                    </div>
-
-                  </div>    
-              {% endfor %}  
+                
 
           </div>
 
