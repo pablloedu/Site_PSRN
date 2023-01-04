@@ -746,6 +746,11 @@ section {
   flex: 0 0 50%;
 }
 @media (max-width: 768px) {
+  .cover-index {
+    object-fit: cover;
+    height: auto;
+    width: 500px;
+  }
   .post-entry-2.half .thumbnail {
     flex: 0 0 100%;
     margin-bottom: 20px;
@@ -1163,6 +1168,11 @@ section {
   color: var(--color-primary);
 }
 @media (min-width: 768px) {
+  .cover-index {
+    object-fit: cover;
+    height: 282px;
+    width: 500px;
+  }
   .contact .info-item-borders {
     border-left: 1px solid rgba(var(--color-secondary-rgb), 0.2);
     border-right: 1px solid rgba(var(--color-secondary-rgb), 0.2);
