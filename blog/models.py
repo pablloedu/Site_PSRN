@@ -1,5 +1,7 @@
 from pyexpat import model
 from tabnanny import verbose
+from pyexpat import model
+from tabnanny import verbose
 from django.db import models
 from django import forms
 from tinymce.models import HTMLField
@@ -39,6 +41,22 @@ class Post(models.Model):
         return self.title
 
     def generate_summary(self):
+        main_idea = self.main_idea[:300]
+        main_idea = re.sub('<[^>]+?>', '', main_idea)
+        return main_idea.strip() + '...'
+
+    # DÁ PROBLEMA COM PALAVRAS QUE JÁ TEM UM HIFEN
+    def generate_url(self):
+        title = self.title.replace(' ','-').strip()
+        return title
+    # TESTAR OS DIFERENTES TITULOS PRA NÃO DAR MERDA DEPOIS
+    def generate_title(self):
+        if len(self.title) > 50:
+            title = self.title[:40].strip() + '...'
+            return title
+        else:
+            return self.title
+
         main_idea = self.main_idea[:300]
         main_idea = re.sub('<[^>]+?>', '', main_idea)
         return main_idea.strip() + '...'
