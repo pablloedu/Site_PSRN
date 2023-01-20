@@ -48,7 +48,7 @@ def main(request):
 
 def article(request, URLTitle):
     #ipdb.set_trace()
-    URLT = URLTitle.replace('-',' ')
+    URLT = URLTitle.replace('+',' ')
     pub = Post.objects.filter(active=True).order_by('-publiched_date')
     first_pub = Post.objects.order_by('-publiched_date').first()
     all_pub = pub.exclude(id=first_pub.id)
