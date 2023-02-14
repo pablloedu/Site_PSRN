@@ -46,11 +46,10 @@ class Post(models.Model):
         return main_idea.strip() + '...'
 
     
-    # DÁ PROBLEMA COM PALAVRAS QUE JÁ TEM UM HIFEN
     def generate_url(self):
         title = self.title.replace(' ','+').strip()
         return title
-    # TESTAR OS DIFERENTES TITULOS PRA NÃO DAR MERDA DEPOIS
+    # TESTAR OS DIFERENTES TITULOS 
     def generate_title(self):
         if len(self.title) > 50:
             title = self.title[:46].strip() + '...'
